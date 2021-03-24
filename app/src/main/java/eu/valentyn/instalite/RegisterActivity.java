@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,11 +18,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
@@ -35,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView loginUser;
 
     private DatabaseReference mRootRef;
+    private FirebaseFirestore db;
     private FirebaseAuth mAuth;
 
     ProgressDialog pd;
@@ -51,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
         register = findViewById(R.id.register);
         loginUser = findViewById(R.id.login_user);
 
+        this.db = FirebaseFirestore.getInstance();
         mRootRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         pd = new ProgressDialog(this);
@@ -84,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void registerUser(final String username, final String name, final String email, String password) {
 
-        pd.setMessage("Please Wail!");
+        pd.setMessage("Please Wait!");
         pd.show();
 
         mAuth.createUserWithEmailAndPassword(email , password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -99,6 +103,29 @@ public class RegisterActivity extends AppCompatActivity {
                 map.put("bio" , "");
                 map.put("imageurl" , "default");
 
+                // Add a new document with a generated ID
+
+                db.collection("Users")
+                        .add(map)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d(null, "DocumentSnapshot added with ID: " + documentReference.getId());
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(null, "Error adding document", e);
+                            }
+                        });
+
+                Intent intent = new Intent(RegisterActivity.this , MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+
+/*
                 mRootRef.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -113,6 +140,9 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
+*/
+
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

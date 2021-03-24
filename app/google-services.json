@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "649069205455",
-    "project_id": "instalite-457c2",
-    "storage_bucket": "instalite-457c2.appspot.com"
+    "project_number": "886849338994",
+    "project_id": "instalite-de1f7",
+    "storage_bucket": "instalite-de1f7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:649069205455:android:56ec4ce6291c69379fe4ba",
+        "mobilesdk_app_id": "1:886849338994:android:fec17b572a401250c48ceb",
         "android_client_info": {
           "package_name": "eu.valentyn.instalite"
         }
       },
       "oauth_client": [
         {
-          "client_id": "649069205455-31ho6arciir6dqlsclko9nkp0rtbjtqk.apps.googleusercontent.com",
+          "client_id": "886849338994-j2p4amsi0lda6cn9e8inn6v52jjej91u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCU6djhQpb3Aqw7aML2YRUcq0c3ishIsJM"
+          "current_key": "AIzaSyA0tUdp4otNoHNHKEiqJnS0Z59L-pGUV38"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "649069205455-31ho6arciir6dqlsclko9nkp0rtbjtqk.apps.googleusercontent.com",
+              "client_id": "886849338994-j2p4amsi0lda6cn9e8inn6v52jjej91u.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
