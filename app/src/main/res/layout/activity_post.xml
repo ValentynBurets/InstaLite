@@ -58,7 +58,7 @@
             android:layout_height="200dp"
             android:layout_gravity="center"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_launcher_foreground"
+            android:src="@mipmap/ic_launcher"
             android:id="@+id/image_added"/>
 
         <com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView

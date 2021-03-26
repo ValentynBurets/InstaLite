@@ -53,15 +53,15 @@ public class PostActivity extends AppCompatActivity {
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(PostActivity.this, MainActivity.class));
+            public void onClick(View v) {
+                startActivity(new Intent(PostActivity.this , MainActivity.class));
                 finish();
             }
         });
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 upload();
             }
         });
@@ -70,7 +70,8 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void upload() {
-        ProgressDialog pd = new ProgressDialog(this);
+
+        final ProgressDialog pd = new ProgressDialog(this);
         pd.setMessage("Uploading");
         pd.show();
 
@@ -134,21 +135,23 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private String getFileExtension(Uri uri) {
+
         return MimeTypeMap.getSingleton().getExtensionFromMimeType(this.getContentResolver().getType(uri));
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
 
             imageAdded.setImageURI(imageUri);
-        }else{
-            Toast.makeText(this, "Try again", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(PostActivity.this, MainActivity.class));
+        } else {
+            Toast.makeText(this, "Try again!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(PostActivity.this , MainActivity.class));
             finish();
         }
     }

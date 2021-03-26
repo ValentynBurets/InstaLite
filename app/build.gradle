@@ -57,7 +57,7 @@ dependencies {
 
     // Also declare the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
-
+    compile 'com.google.firebase:firebase:firebase-database:16.0.4'
 
 
     testImplementation 'junit:junit:4.13.2'
@@ -66,8 +66,9 @@ dependencies {
 }
 
 apply plugin: 'com.android.application'
-// Add this line
+// apply for firestore realtime data base
 apply plugin: 'com.google.gms.google-services'
+
 
 dependencies {
 
