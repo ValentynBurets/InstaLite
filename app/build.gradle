@@ -30,6 +30,14 @@ android {
 
 dependencies {
 
+    //circleimageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //-------------------------------
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    //--------------------------------
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
@@ -37,9 +45,9 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth:20.0.3'
     implementation 'com.google.firebase:firebase-database:19.7.0'
-    implementation 'com.google.firebase:firebase-firestore:22.1.1'
-    implementation 'com.google.firebase:firebase-storage:19.2.1'
-    implementation 'com.google.firebase:firebase-functions:16.1.3'
+    implementation 'com.google.firebase:firebase-firestore:22.1.2'
+    implementation 'com.google.firebase:firebase-storage:19.2.2'
+    implementation 'com.google.firebase:firebase-functions:19.2.0'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-functions:19.2.0'
@@ -56,7 +64,7 @@ dependencies {
 
     implementation "com.hendraanggrian.appcompat:socialview:0.2"
     implementation "com.hendraanggrian.appcompat:socialview-commons:0.2"
-    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
 
     // Also declare the dependency for the Google Play services library and specify its version
