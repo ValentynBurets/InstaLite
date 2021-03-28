@@ -1,0 +1,60 @@
+[debug] [2021-03-28T15:51:59.034Z] ----------------------------------------------------------------------
+[debug] [2021-03-28T15:51:59.039Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Valentyn\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2021-03-28T15:51:59.040Z] CLI Version:   8.20.0
+[debug] [2021-03-28T15:51:59.040Z] Platform:      win32
+[debug] [2021-03-28T15:51:59.041Z] Node Version:  v15.12.0
+[debug] [2021-03-28T15:51:59.049Z] Time:          Sun Mar 28 2021 18:51:59 GMT+0300 (Eastern European Summer Time)
+[debug] [2021-03-28T15:51:59.049Z] ----------------------------------------------------------------------
+[debug] [2021-03-28T15:51:59.049Z] 
+[debug] [2021-03-28T15:51:59.055Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-03-28T15:51:59.121Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-03-28T15:51:59.122Z] > authorizing via signed-in user
+[debug] [2021-03-28T15:51:59.123Z] [iam] checking project instalite-de1f7 for permissions ["firebase.projects.get"]
+[debug] [2021-03-28T15:51:59.128Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-03-28T15:51:59.129Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-03-28T15:51:59.340Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Sun, 28 Mar 2021 15:51:58 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-03-28T15:51:59.376Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/instalite-de1f7:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2021-03-28T15:51:59.683Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2021-03-28T15:51:59.684Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2021-03-28T15:52:00.251Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 28 Mar 2021 15:51:59 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=709","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[warn] !  Your requested "node" version "8" doesn't match your global version "15" {"metadata":{"emulator":{"name":"functions"},"message":"Your requested \"node\" version \"8\" doesn't match your global version \"15\""}}
+[debug] [2021-03-28T15:52:00.264Z] defaultcredentials: writing to file C:\Users\Valentyn\AppData\Roaming\firebase\kingandgames28_gmail_com_application_default_credentials.json
+[debug] [2021-03-28T15:52:00.265Z] DEBUG: Setting GAC to C:\Users\Valentyn\AppData\Roaming\firebase\kingandgames28_gmail_com_application_default_credentials.json
+[debug] [2021-03-28T15:52:00.281Z] [functions] Watching "C:\Users\Valentyn\study\TERM3.2\CrossPlatform\InstaLite\functions" for Cloud Functions...
+[debug] [2021-03-28T15:52:00.296Z] DEBUG: [worker-pool] addWorker(~diagnostic~)
+[debug] [2021-03-28T15:52:00.296Z] DEBUG: [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2021-03-28T15:52:00.297Z] DEBUG: [worker-pool] submitWork(triggerId=)
+[debug] [2021-03-28T15:52:00.297Z] DEBUG: [worker-~diagnostic~-e69f9149-0799-4c12-8833-43e0bea2dd0a]: Assigning socketPath: \\?\pipe\C:\Users\Valentyn\study\TERM3.2\CrossPlatform\InstaLite\functions\10520
+[debug] [2021-03-28T15:52:00.298Z] DEBUG: [worker-~diagnostic~-e69f9149-0799-4c12-8833-43e0bea2dd0a]: BUSY
+[info] >  Debugger attached. {"user":"Debugger attached.\r","metadata":{"emulator":{"name":"functions"},"message":"\u001b[90m> \u001b[39m Debugger attached.\r"}}
+[debug] [2021-03-28T15:52:01.111Z] DEBUG: [runtime-status] [10520] Functions runtime initialized. {"cwd":"C:\\Users\\Valentyn\\study\\TERM3.2\\CrossPlatform\\InstaLite\\functions","node_version":"15.12.0"}
+[debug] [2021-03-28T15:52:01.113Z] DEBUG: [runtime-status] [10520] Disabled runtime features: undefined
+[debug] [2021-03-28T15:52:01.119Z] DEBUG: [runtime-status] [10520] Resolved module firebase-admin {"declared":true,"installed":true,"version":"9.5.0","resolution":"C:\\Users\\Valentyn\\study\\TERM3.2\\CrossPlatform\\InstaLite\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2021-03-28T15:52:01.122Z] DEBUG: [runtime-status] [10520] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.13.2","resolution":"C:\\Users\\Valentyn\\study\\TERM3.2\\CrossPlatform\\InstaLite\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-03-28T15:52:01.126Z] DEBUG: [runtime-status] [10520] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.13.2","resolution":"C:\\Users\\Valentyn\\study\\TERM3.2\\CrossPlatform\\InstaLite\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-03-28T15:52:01.133Z] DEBUG: [runtime-status] [10520] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}]
+[debug] [2021-03-28T15:52:01.134Z] DEBUG: [runtime-status] [10520] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.13.2","resolution":"C:\\Users\\Valentyn\\study\\TERM3.2\\CrossPlatform\\InstaLite\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-03-28T15:52:01.393Z] DEBUG: [runtime-status] [10520] Checked functions.config() {"config":{}}
+[debug] [2021-03-28T15:52:01.393Z] DEBUG: [runtime-status] [10520] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"3.13.2","resolution":"C:\\Users\\Valentyn\\study\\TERM3.2\\CrossPlatform\\InstaLite\\functions\\node_modules\\firebase-functions\\lib\\index.js"}}
+[debug] [2021-03-28T15:52:01.396Z] DEBUG: [runtime-status] [10520] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.13.2","resolution":"C:\\Users\\Valentyn\\study\\TERM3.2\\CrossPlatform\\InstaLite\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-03-28T15:52:01.406Z] DEBUG: [runtime-status] [10520] Resolved module firebase-admin {"declared":true,"installed":true,"version":"9.5.0","resolution":"C:\\Users\\Valentyn\\study\\TERM3.2\\CrossPlatform\\InstaLite\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2021-03-28T15:52:01.408Z] DEBUG: [runtime-status] [10520] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.13.2","resolution":"C:\\Users\\Valentyn\\study\\TERM3.2\\CrossPlatform\\InstaLite\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2021-03-28T15:52:01.409Z] DEBUG: [runtime-status] [10520] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"9.5.0","resolution":"C:\\Users\\Valentyn\\study\\TERM3.2\\CrossPlatform\\InstaLite\\functions\\node_modules\\firebase-admin\\lib\\index.js"}}
+[warn] !  It looks like you're trying to access functions.config().gmail but there is no value there. You can learn more about setting up config here: https://firebase.google.com/docs/functions/local-emulator {"metadata":{"emulator":{"name":"functions"},"message":"It looks like you're trying to access functions.config().gmail but there is no value there. You can learn more about setting up config here: https://firebase.google.com/docs/functions/local-emulator"}}
+[warn] !  TypeError: Cannot read property 'email' of undefined
+    at Object.<anonymous> (C:\Users\Valentyn\study\TERM3.2\CrossPlatform\InstaLite\functions\index.js:6:44)
+    at Module._compile (node:internal/modules/cjs/loader:1092:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1121:10)
+    at Module.load (node:internal/modules/cjs/loader:972:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:813:14)
+    at Module.require (node:internal/modules/cjs/loader:996:19)
+    at require (node:internal/modules/cjs/helpers:92:18)
+    at C:\Users\Valentyn\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulatorRuntime.js:712:33
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\Valentyn\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulatorRuntime.js:5:58) {"metadata":{"emulator":{"name":"functions"},"message":"TypeError: Cannot read property 'email' of undefined\n    at Object.<anonymous> (C:\\Users\\Valentyn\\study\\TERM3.2\\CrossPlatform\\InstaLite\\functions\\index.js:6:44)\n    at Module._compile (node:internal/modules/cjs/loader:1092:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1121:10)\n    at Module.load (node:internal/modules/cjs/loader:972:32)\n    at Function.Module._load (node:internal/modules/cjs/loader:813:14)\n    at Module.require (node:internal/modules/cjs/loader:996:19)\n    at require (node:internal/modules/cjs/helpers:92:18)\n    at C:\\Users\\Valentyn\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\emulator\\functionsEmulatorRuntime.js:712:33\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Users\\Valentyn\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\emulator\\functionsEmulatorRuntime.js:5:58)"}}
+[warn] !  We were unable to load your functions code. (see above) {"metadata":{"emulator":{"name":"functions"}}}
+[info] >  Waiting for the debugger to disconnect... {"user":"Waiting for the debugger to disconnect...\r","metadata":{"emulator":{"name":"functions"},"message":"\u001b[90m> \u001b[39m Waiting for the debugger to disconnect...\r"}}
+[debug] [2021-03-28T15:52:01.924Z] DEBUG: [worker-~diagnostic~-e69f9149-0799-4c12-8833-43e0bea2dd0a]: exited
+[debug] [2021-03-28T15:52:01.924Z] DEBUG: [worker-~diagnostic~-e69f9149-0799-4c12-8833-43e0bea2dd0a]: FINISHED

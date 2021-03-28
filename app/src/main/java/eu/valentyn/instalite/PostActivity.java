@@ -20,8 +20,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -76,7 +79,10 @@ public class PostActivity extends AppCompatActivity {
         pd.show();
 
         if (imageUri != null){
-            final StorageReference filePath = FirebaseStorage.getInstance().getReference("Posts").child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+            final StorageReference filePath = FirebaseStorage.getInstance().getReference("Posts");//.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+            //final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            //final DatabaseReference databaseReference = database.getReference("Posts");
+
 
             StorageTask uploadtask = filePath.putFile(imageUri);
             uploadtask.continueWithTask(new Continuation() {
@@ -91,29 +97,35 @@ public class PostActivity extends AppCompatActivity {
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
+
                     Uri downloadUri = task.getResult();
                     imageUrl = downloadUri.toString();
 
+                    //write post info in real database
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
                     String postId = ref.push().getKey();
+
+                    String descriptionStr = description.toString();
+                    int indexOfHashtag = descriptionStr.indexOf("#");
+                    String postDescription = descriptionStr.substring(indexOfHashtag);
 
                     HashMap<String , Object> map = new HashMap<>();
                     map.put("postid" , postId);
                     map.put("imageurl" , imageUrl);
-                    map.put("description" , description.getText().toString());
+                    map.put("description" , postDescription);
                     map.put("publisher" , FirebaseAuth.getInstance().getCurrentUser().getUid());
-
                     ref.child(postId).setValue(map);
+
+
+                    //write hash tag info in real database
 
                     DatabaseReference mHashTagRef = FirebaseDatabase.getInstance().getReference().child("HashTags");
                     List<String> hashTags = description.getHashtags();
                     if (!hashTags.isEmpty()){
-                        for (String tag : hashTags){
+                        for (String tag : hashTags) {
                             map.clear();
-
-                            map.put("tag" , tag.toLowerCase());
-                            map.put("postid" , postId);
-
+                            map.put("tag", tag.toLowerCase());
+                            map.put("postid", postId);
                             mHashTagRef.child(tag.toLowerCase()).child(postId).setValue(map);
                         }
                     }
