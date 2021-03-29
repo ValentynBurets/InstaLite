@@ -3,7 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Search....</string>
+    <string name="contentdescription">contentDescription</string>
+    <string name="todo">TODO</string>
+    <string name="tag">#tag</string>
     <string name="username">username</string>
     <string name="full_name">Full name</string>
-    <string name="contentdescription">contentDescription</string>
+    <string name="post">POST</string>
+    <string name="description">Description....</string>
+
 </resources>

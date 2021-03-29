@@ -40,19 +40,11 @@ public class StartActivity extends AppCompatActivity {
 
         iconImage.setAnimation(animation);
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(StartActivity.this , RegisterActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
+        register.setOnClickListener(v -> startActivity(new Intent(StartActivity.this , RegisterActivity.class).
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(StartActivity.this , LogInActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
+        login.setOnClickListener(v -> startActivity(new Intent(StartActivity.this , LogInActivity.class).
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 
 
 
@@ -78,6 +70,7 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected  void onStart(){
         super.onStart();
@@ -87,5 +80,7 @@ public class StartActivity extends AppCompatActivity {
             finish();
         }
     }
+
+
 
 }

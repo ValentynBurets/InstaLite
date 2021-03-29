@@ -37,8 +37,8 @@ public class User {
         this.bio = bio;
     }
 
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl;
+    public void setImageurl(String image_url) {
+        this.imageurl = image_url;
     }
 
     public void setId(String id) {

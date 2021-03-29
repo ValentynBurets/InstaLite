@@ -27,17 +27,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:src="@drawable/ic_close_foreground"
-                    android:id="@+id/close"/>
+                    android:src="@drawable/ic_close"
+                    android:id="@+id/close"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="POST"
+                    android:text="@string/post"
                     android:id="@+id/post"
                     android:textSize="18sp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginEnd="15dp"
                     android:textColor="@color/colorPrimary"
                     android:layout_centerVertical="true"/>
 
@@ -59,13 +60,14 @@
             android:layout_gravity="center"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_launcher"
-            android:id="@+id/image_added"/>
+            android:id="@+id/image_added"
+            android:contentDescription="TODO" />
 
         <com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:hint="Description..."
+            android:hint="@string/description"
             android:maxLines="5"
             android:id="@+id/description"
             app:socialFlags="hashtag|mention"

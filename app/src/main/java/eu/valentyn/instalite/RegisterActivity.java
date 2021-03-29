@@ -27,6 +27,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
+import eu.valentyn.instalite.Model.User;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText username;
@@ -59,29 +61,21 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         pd = new ProgressDialog(this);
 
-        loginUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this , LogInActivity.class));
-            }
-        });
+        loginUser.setOnClickListener(v -> startActivity(new Intent(RegisterActivity.this , LogInActivity.class)));
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String txtUsername = username.getText().toString();
-                String txtName = name.getText().toString();
-                String txtEmail = email.getText().toString();
-                String txtPassword = password.getText().toString();
+        register.setOnClickListener(v -> {
+            String txtUsername = username.getText().toString();
+            String txtName = name.getText().toString();
+            String txtEmail = email.getText().toString();
+            String txtPassword = password.getText().toString();
 
-                if (TextUtils.isEmpty(txtUsername) || TextUtils.isEmpty(txtName)
-                        || TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)){
-                    Toast.makeText(RegisterActivity.this, "Empty credentials!", Toast.LENGTH_SHORT).show();
-                } else if (txtPassword.length() < 6){
-                    Toast.makeText(RegisterActivity.this, "Password too short!", Toast.LENGTH_SHORT).show();
-                } else {
-                    registerUser(txtUsername , txtName , txtEmail , txtPassword);
-                }
+            if (TextUtils.isEmpty(txtUsername) || TextUtils.isEmpty(txtName)
+                    || TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)){
+                Toast.makeText(RegisterActivity.this, "Empty credentials!", Toast.LENGTH_SHORT).show();
+            } else if (txtPassword.length() < 6){
+                Toast.makeText(RegisterActivity.this, "Password too short!", Toast.LENGTH_SHORT).show();
+            } else {
+                registerUser(txtUsername , txtName , txtEmail , txtPassword);
             }
         });
     }
@@ -94,6 +88,31 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email , password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
+/*
+                User newUser = new User();
+                newUser.setName(name);
+                newUser.setEmail(email);
+                newUser.setUsername(username);
+                newUser.setId(mAuth.getCurrentUser().getUid());
+                newUser.setBio("");
+                newUser.setImageurl("default");
+
+                db.collection("Users")
+                        .add(newUser)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d(null,"DocumentSnapshot added with ID: " + documentReference.getId());
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(null, "Error adding document", e);
+                    }
+                });
+  */
+
 
                 HashMap<String , Object> map = new HashMap<>();
                 map.put("name" , name);
@@ -107,18 +126,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                 db.collection("Users")
                         .add(map)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d(null, "DocumentSnapshot added with ID: " + documentReference.getId());
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(null, "Error adding document", e);
-                            }
-                        });
+                        .addOnSuccessListener(documentReference -> Log.d(null, "DocumentSnapshot added with ID: " + documentReference.getId()))
+                        .addOnFailureListener(e -> Log.w(null, "Error adding document", e));
+
 
                 pd.dismiss();
                 Toast.makeText(RegisterActivity.this, "Update the profile " +
@@ -128,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
 
-/*
+
                 mRootRef.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -143,16 +153,13 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
-*/
+
 
 
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                pd.dismiss();
-                Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+        }).addOnFailureListener(e -> {
+            pd.dismiss();
+            Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         });
 
     }
