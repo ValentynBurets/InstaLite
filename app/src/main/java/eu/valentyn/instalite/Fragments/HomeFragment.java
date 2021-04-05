@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import eu.valentyn.instalite.Adapter.PostAdapter;
 import eu.valentyn.instalite.Model.Post;
@@ -33,10 +34,10 @@ public class HomeFragment extends Fragment {
 
     private List<String> followingList;
 
-  @Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view =inflater.inflate(R.layout.fragment_home, container, false);
 
         recyclerViewPosts = view.findViewById(R.id.recycler_view_posts);
         recyclerViewPosts.setHasFixedSize(true);
@@ -57,20 +58,20 @@ public class HomeFragment extends Fragment {
 
     private void checkFollowingUsers() {
 
-        FirebaseDatabase.getInstance().getReference().child("Follow").child(FirebaseAuth.getInstance().
-                getCurrentUser().getUid()).child("following").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Follow").child(FirebaseAuth.getInstance()
+                .getCurrentUser().getUid()).child("following").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 followingList.clear();
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     followingList.add(snapshot.getKey());
                 }
-
+                followingList.add(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 readPosts();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -78,26 +79,28 @@ public class HomeFragment extends Fragment {
     }
 
     private void readPosts() {
-      FirebaseDatabase.getInstance().getReference().child("Posts").addValueEventListener(new ValueEventListener() {
-          @Override
-          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-              postList.clear();
-              for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                  Post post = snapshot.getValue(Post.class);
 
-                  for(String id: followingList){
-                      if(post.getPublisher().equals(id)){
-                          postList.add(post);
-                      }
-                  }
-              }
-              postAdapter.notifyDataSetChanged();
-          }
+        FirebaseDatabase.getInstance().getReference().child("Posts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                postList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Post post = snapshot.getValue(Post.class);
 
-          @Override
-          public void onCancelled(@NonNull DatabaseError error) {
+                    for (String id : followingList) {
+                        if (post.getPublisher().equals(id)){
+                            postList.add(post);
+                        }
+                    }
+                }
+                postAdapter.notifyDataSetChanged();
+            }
 
-          }
-      });
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }
