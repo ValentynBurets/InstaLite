@@ -61,7 +61,6 @@ dependencies {
 // Add the dependencies for any other desired Firebase products
 // https://firebase.google.com/docs/android/setup#available-libraries
 
-
     implementation "com.hendraanggrian.appcompat:socialview:0.2"
     implementation "com.hendraanggrian.appcompat:socialview-commons:0.2"
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
@@ -74,7 +73,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
-
 apply plugin: 'com.android.application'
 // apply for firestore realtime data base
 apply plugin: 'com.google.gms.google-services'

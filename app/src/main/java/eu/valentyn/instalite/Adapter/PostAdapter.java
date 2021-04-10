@@ -118,19 +118,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
             }
         });
 
-        holder.save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (holder.save.getTag().equals("save")) {
-                    FirebaseDatabase.getInstance().getReference().child("Saves")
-                            .child(firebaseUser.getUid()).child(post.getPostid()).setValue(true);
-                } else {
-                    FirebaseDatabase.getInstance().getReference().child("Saves")
-                            .child(firebaseUser.getUid()).child(post.getPostid()).removeValue();
-                }
-            }
-        });
-
         holder.imageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,7 +156,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
             public void onClick(View v) {
                 mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit().putString("postid", post.getPostid()).apply();
 
-                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
+               ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new PostDetailFragment()).commit();
             }
         });
@@ -181,6 +168,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
                 intent.putExtra("id", post.getPublisher());
                 intent.putExtra("title", "likes");
                 mContext.startActivity(intent);
+
+
+            }
+        });
+
+        holder.save.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                if(holder.save.getTag().equals("save")){
+                    FirebaseDatabase.getInstance().getReference().child("Saves").
+                            child(firebaseUser.getUid()).child(post.getPostid()).setValue(true);
+                }else{
+                    FirebaseDatabase.getInstance().getReference().child("Saves").
+                            child(firebaseUser.getUid()).child(post.getPostid()).removeValue();
+                }
             }
         });
 
@@ -226,12 +229,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
     }
 
     private void isSaved (final String postId, final ImageView image) {
-        FirebaseDatabase.getInstance().getReference().child("Saves").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Saves").
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
+                addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(postId).exists()) {
-                    //maybe should be save black!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    image.setImageResource(R.drawable.ic_save);
+                    image.setImageResource(R.drawable.ic_save_black);
                     image.setTag("saved");
                 } else {
                     image.setImageResource(R.drawable.ic_save);
