@@ -33,8 +33,10 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import eu.valentyn.instalite.Adapter.PhotoAdapter;
 import eu.valentyn.instalite.EditProfileActivity;
+import eu.valentyn.instalite.FollowersActivity;
 import eu.valentyn.instalite.Model.Post;
 import eu.valentyn.instalite.Model.User;
+import eu.valentyn.instalite.OptionsActivity;
 import eu.valentyn.instalite.R;
 
 public class ProfileFragment extends Fragment {
@@ -60,8 +62,6 @@ public class ProfileFragment extends Fragment {
     private ImageView savedPictures;
 
     private Button editProfile;
-
-    private Button getEditProfile;
 
     private FirebaseUser fUser;
 
@@ -194,12 +194,12 @@ public class ProfileFragment extends Fragment {
 
         return view;
     }
+
     private void getSavedPosts() {
 
         final List<String> savedIds = new ArrayList<>();
 
-        FirebaseDatabase.getInstance().getReference().child("Saves").child(fUser.getUid()).
-                addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Saves").child(fUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {

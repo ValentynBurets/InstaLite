@@ -91,9 +91,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
         holder.itemView.setOnClickListener(v -> {
             if (isFragment) {
-                mContext.getSharedPreferences("PROFILE", Context.MODE_PRIVATE).edit().putString("profileId", user.getId()).apply();
+                mContext.getSharedPreferences("PROFILE", Context.MODE_PRIVATE).
+                        edit().putString("profileId", user.getId()).apply();
 
-                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                ((FragmentActivity)mContext).getSupportFragmentManager().
+                        beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
             } else {
                 Intent intent = new Intent(mContext, MainActivity.class);
                 intent.putExtra("publisherId", user.getId());

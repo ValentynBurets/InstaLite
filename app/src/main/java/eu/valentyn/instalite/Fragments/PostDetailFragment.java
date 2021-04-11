@@ -1,5 +1,6 @@
 package eu.valentyn.instalite.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,55 +12,48 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import eu.valentyn.instalite.Adapter.NotificationAdapter;
-import eu.valentyn.instalite.Model.Notification;
+import eu.valentyn.instalite.Adapter.PostAdapter;
+import eu.valentyn.instalite.Model.Post;
 import eu.valentyn.instalite.R;
 
-public class NotificationFragment extends Fragment {
 
+public class PostDetailFragment extends Fragment {
+
+    private String postId;
     private RecyclerView recyclerView;
-    private NotificationAdapter notificationAdapter;
-    private List<Notification> notificationList;
+    private PostAdapter postAdapter;
+    private List<Post> postList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notification, container, false);
+        View view = inflater.inflate(R.layout.fragment_post_detail, container, false);
+
+        postId = getContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE).getString("postid", "none");
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        notificationList = new ArrayList<>();
-        notificationAdapter = new NotificationAdapter(getContext(), notificationList);
-        recyclerView.setAdapter(notificationAdapter);
 
-        readNotifications();
+        postList = new ArrayList<>();
+        postAdapter = new PostAdapter(getContext(), postList);
+        recyclerView.setAdapter(postAdapter);
 
-        return view;
-    }
-
-    private void readNotifications() {
-
-        FirebaseDatabase.getInstance().getReference().child("Notifications").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                postList.clear();
+                postList.add(dataSnapshot.getValue(Post.class));
 
-                    notificationList.add(snapshot.getValue(Notification.class));
-                }
-
-                Collections.reverse(notificationList);
-                notificationAdapter.notifyDataSetChanged();
+                postAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -68,6 +62,6 @@ public class NotificationFragment extends Fragment {
             }
         });
 
-
+        return view;
     }
 }
