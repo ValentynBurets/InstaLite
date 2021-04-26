@@ -13,6 +13,9 @@ package eu.valentyn.instalite;
         import android.widget.LinearLayout;
 
         import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.crashlytics.internal.common.CrashlyticsCore;
+
+        import eu.valentyn.instalite.Services.LoadServise;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -20,6 +23,7 @@ public class StartActivity extends AppCompatActivity {
     private LinearLayout linearLayout;
     private Button register;
     private Button login;
+    private LoadServise loadServise = new LoadServise();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,26 +35,32 @@ public class StartActivity extends AppCompatActivity {
         register = findViewById(R.id.register);
         login = findViewById(R.id.login);
 
-        linearLayout.animate().alpha(0f).setDuration(100);
+        linearLayout.animate().alpha(0f).setDuration(10);
 
-        TranslateAnimation animation = new TranslateAnimation(0,0,0,-1500);
+        TranslateAnimation animation = new TranslateAnimation(0 , 0 , 0 , -1500);
         animation.setDuration(1000);
         animation.setFillAfter(false);
         animation.setAnimationListener(new MyAnimationListener());
 
         iconImage.setAnimation(animation);
 
-        register.setOnClickListener(v -> startActivity(new Intent(StartActivity.this , RegisterActivity.class).
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP)));
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StartActivity.this , RegisterActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
 
-        login.setOnClickListener(v -> startActivity(new Intent(StartActivity.this , LogInActivity.class).
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP)));
-
-
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StartActivity.this , LogInActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
 
     }
 
-    private class MyAnimationListener implements Animation.AnimationListener{
+    private class MyAnimationListener implements Animation.AnimationListener {
 
         @Override
         public void onAnimationStart(Animation animation) {
@@ -59,9 +69,11 @@ public class StartActivity extends AppCompatActivity {
 
         @Override
         public void onAnimationEnd(Animation animation) {
+
             iconImage.clearAnimation();
             iconImage.setVisibility(View.INVISIBLE);
             linearLayout.animate().alpha(1f).setDuration(1000);
+
         }
 
         @Override
@@ -70,17 +82,15 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
-    protected  void onStart(){
+    protected void onStart() {
         super.onStart();
 
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            startActivity(new Intent(StartActivity.this, MainActivity.class));
+        loadServise.startTask();
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            startActivity(new Intent(StartActivity.this , MainActivity.class));
             finish();
         }
     }
-
-
-
 }

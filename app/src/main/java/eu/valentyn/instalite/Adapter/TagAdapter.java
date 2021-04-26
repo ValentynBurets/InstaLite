@@ -29,16 +29,17 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.tag_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.tag_item , parent , false);
 
         return new TagAdapter.ViewHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tag.setText("#" + mTags.get(position));
+
+        holder.tag.setText("# " + mTags.get(position));
         holder.noOfPosts.setText(mTagsCount.get(position) + " posts");
+
     }
 
     @Override
@@ -46,19 +47,24 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder>{
         return mTags.size();
     }
 
-    public void filter(List<String> mSearchTags, List<String> mSearchTagsCount) {
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder{
+
         public TextView tag;
         public TextView noOfPosts;
 
-        public ViewHolder(@NonNull View itemView){
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tag = itemView.findViewById(R.id.hash_tag);
             noOfPosts = itemView.findViewById(R.id.no_of_posts);
         }
     }
-    
+
+    public void filter (List<String> filterTags , List<String> filterTagsCount) {
+        this.mTags = filterTags;
+        this.mTagsCount = filterTagsCount;
+
+        notifyDataSetChanged();
+    }
+
 }

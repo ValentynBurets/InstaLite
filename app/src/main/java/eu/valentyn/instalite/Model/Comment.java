@@ -6,7 +6,6 @@ public class Comment {
     private String comment;
     private String publisher;
 
-
     public Comment() {
     }
 

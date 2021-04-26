@@ -32,7 +32,6 @@ import eu.valentyn.instalite.Model.User;
 import eu.valentyn.instalite.R;
 import okhttp3.internal.cache.DiskLruCache;
 
-
 public class SearchFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -61,11 +60,11 @@ public class SearchFragment extends Fragment {
 
         mHashTags = new ArrayList<>();
         mHashTagsCount = new ArrayList<>();
-        tagAdapter = new TagAdapter(getContext(), mHashTags, mHashTagsCount);
+        tagAdapter = new TagAdapter(getContext() , mHashTags , mHashTagsCount);
         recyclerViewTags.setAdapter(tagAdapter);
 
         mUsers = new ArrayList<>();
-        userAdapter = new UserAdapter(getContext(), mUsers, true);
+        userAdapter = new UserAdapter(getContext() , mUsers , true);
         recyclerView.setAdapter(userAdapter);
 
         search_bar = view.findViewById(R.id.search_bar);
@@ -101,7 +100,7 @@ public class SearchFragment extends Fragment {
                 mHashTags.clear();
                 mHashTagsCount.clear();
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     mHashTags.add(snapshot.getKey());
                     mHashTagsCount.add(snapshot.getChildrenCount() + "");
                 }
@@ -114,11 +113,10 @@ public class SearchFragment extends Fragment {
 
             }
         });
+
     }
 
-
     private void readUsers() {
-
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
         reference.addValueEventListener(new ValueEventListener() {

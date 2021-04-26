@@ -27,7 +27,6 @@ public class LogInActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,22 +39,22 @@ public class LogInActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        registerUser.setOnClickListener(new View.OnClickListener(){
+        registerUser.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                startActivity(new Intent(LogInActivity.this, RegisterActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            public void onClick(View v) {
+                startActivity(new Intent(LogInActivity.this, RegisterActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
             }
         });
 
-        login.setOnClickListener(new View.OnClickListener(){
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 String txt_email = email.getText().toString();
                 String txt_password = password.getText().toString();
 
-                if(TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
+                if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)) {
                     Toast.makeText(LogInActivity.this, "Empty Credentials!", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     loginUser(txt_email, txt_password);
                 }
             }
@@ -64,10 +63,11 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void loginUser(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+        mAuth.signInWithEmailAndPassword(email , password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()){
                     Toast.makeText(LogInActivity.this, "Update the profile " +
                             "for better expereince", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LogInActivity.this , MainActivity.class);
@@ -80,8 +80,9 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(LogInActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
             }
         });
+
     }
+
 }

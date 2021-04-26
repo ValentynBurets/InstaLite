@@ -1,6 +1,7 @@
 package eu.valentyn.instalite.Model;
 
 public class Post {
+
     private String description;
     private String imageurl;
     private String postid;

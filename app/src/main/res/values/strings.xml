@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">InstaLite</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Search....</string>
     <string name="contentdescription">contentDescription</string>
@@ -12,5 +11,7 @@
     <string name="description">Description....</string>
     <string name="settings">Settings</string>
     <string name="log_out">Log Out</string>
+    <string name="acra_mail_text">AKRA test</string>
+    <string name="AKRA_dialog_text">AKRA dialog text</string>
 
 </resources>

@@ -7,12 +7,6 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -31,13 +25,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
                 switch (menuItem.getItemId()){
-                    case R.id.nav_home:
+                    case R.id.nav_home :
                         selectorFragment = new HomeFragment();
                         break;
 
@@ -47,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.nav_add :
                         selectorFragment = null;
-                        startActivity(new Intent(MainActivity.this, PostActivity.class));
+                        startActivity(new Intent(MainActivity.this , PostActivity.class));
                         break;
 
                     case R.id.nav_heart :
@@ -59,25 +55,28 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
 
-                if(selectorFragment != null){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectorFragment).commit();
+                if (selectorFragment != null){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container , selectorFragment).commit();
                 }
 
-                return true;
+                return  true;
+
             }
         });
 
         Bundle intent = getIntent().getExtras();
-        if(intent != null){
+        if (intent != null) {
             String profileId = intent.getString("publisherId");
 
             getSharedPreferences("PROFILE", MODE_PRIVATE).edit().putString("profileId", profileId).apply();
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
             bottomNavigationView.setSelectedItemId(R.id.nav_profile);
-        }else{
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container , new HomeFragment()).commit();
         }
 
     }
+
+
 }

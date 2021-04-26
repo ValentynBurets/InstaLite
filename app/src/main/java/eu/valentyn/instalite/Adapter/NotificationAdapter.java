@@ -59,19 +59,22 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.postImage.setVisibility(View.GONE);
         }
 
-        holder.itemView.setOnClickListener(v -> {
-            if (notification.isIsPost()) {
-                mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
-                        .edit().putString("postid", notification.getPostid()).apply();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (notification.isIsPost()) {
+                    mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+                            .edit().putString("postid", notification.getPostid()).apply();
 
-                ((FragmentActivity)mContext).getSupportFragmentManager()
-                        .beginTransaction().replace(R.id.fragment_container, new PostDetailFragment()).commit();
-            } else {
-                mContext.getSharedPreferences("PROFILE", Context.MODE_PRIVATE)
-                        .edit().putString("profileId", notification.getUserid()).apply();
+                    ((FragmentActivity)mContext).getSupportFragmentManager()
+                            .beginTransaction().replace(R.id.fragment_container, new PostDetailFragment()).commit();
+                } else {
+                    mContext.getSharedPreferences("PROFILE", Context.MODE_PRIVATE)
+                            .edit().putString("profileId", notification.getUserid()).apply();
 
-                ((FragmentActivity)mContext).getSupportFragmentManager()
-                        .beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                    ((FragmentActivity)mContext).getSupportFragmentManager()
+                            .beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                }
             }
         });
 
@@ -104,7 +107,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Post post = dataSnapshot.getValue(Post.class);
-                assert post != null;
                 Picasso.get().load(post.getImageurl()).placeholder(R.mipmap.ic_launcher).into(imageView);
             }
 
