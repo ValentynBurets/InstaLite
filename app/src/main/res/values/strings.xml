@@ -13,5 +13,10 @@
     <string name="log_out">Log Out</string>
     <string name="acra_mail_text">AKRA test</string>
     <string name="AKRA_dialog_text">AKRA dialog text</string>
+    <string name="local_service_connected">" "</string>
+    <string name="local_service_disconnected" />
+    <string name="local_service_started" />
+    <string name="local_service_stopped" />
+    <string name="local_service_label" />
 
 </resources>

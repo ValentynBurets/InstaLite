@@ -2,8 +2,10 @@ package eu.valentyn.instalite.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Parcelable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,23 +17,24 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.squareup.picasso.Picasso;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.util.ArrayList;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,6 +45,9 @@ import eu.valentyn.instalite.Fragments.ProfileFragment;
 import eu.valentyn.instalite.Model.Post;
 import eu.valentyn.instalite.Model.User;
 import eu.valentyn.instalite.R;
+
+import static android.content.Context.MODE_PRIVATE;
+import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
 
@@ -146,20 +152,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         holder.send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String uri = post.getImageurl();
 
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, uri);
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                mContext.startActivity(shareIntent);
+            }
+        });
+/*
                 FirebaseDatabase.getInstance().getReference().child("Posts").child(post.getPostid()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Post post = dataSnapshot.getValue(Post.class);
                         String uri  = post.getImageurl();
-
-                        Intent sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, uri);
-                        sendIntent.setType("text/plain");
-
-                        Intent shareIntent = Intent.createChooser(sendIntent, null);
-                        mContext.startActivity(shareIntent);           }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
@@ -167,13 +176,55 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
                     }
 
                 });
+            */
+
+
+        holder.download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)  {
+                //try {
+                    String fileName = post.getDescription() + ".txt";
+                    File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), fileName);
+
+                    //Bitmap picture = BitmapFactory.decodeStream(new URL(post.getImageurl()).openConnection().getInputStream());
+
+                    /*try{
+
+                        OutputStream pictureStream = null;
+                        pictureStream = new FileOutputStream(path);
+
+                        picture.compress(Bitmap.CompressFormat.JPEG,100, pictureStream);
+
+                        pictureStream.flush();
+                        pictureStream.close();
+                        */
+                        Toast toast = Toast.makeText(mContext,
+                                "Picture saved with name " + fileName + " in DIRECTORY_PICTURES", Toast.LENGTH_SHORT);
+                        toast.show();/*
+                    }catch (IOException e)
+                    {
+                        e.printStackTrace();
+
+                        Toast toast = Toast.makeText(mContext,
+                                "Picture didn't save. Can not save picture", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast toast = Toast.makeText(mContext,
+                            "Picture didn't save. Can not get folder path or get picture", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+*/
             }
+
         });
 
         holder.imageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.getSharedPreferences("PROFILE", Context.MODE_PRIVATE)
+                mContext.getSharedPreferences("PROFILE", MODE_PRIVATE)
                         .edit().putString("profileId", post.getPublisher()).apply();
 
                 ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction()
@@ -184,7 +235,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         holder.username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.getSharedPreferences("PROFILE", Context.MODE_PRIVATE)
+                mContext.getSharedPreferences("PROFILE", MODE_PRIVATE)
                         .edit().putString("profileId", post.getPublisher()).apply();
 
                 ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction()
@@ -195,7 +246,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         holder.author.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.getSharedPreferences("PROFILE", Context.MODE_PRIVATE)
+                mContext.getSharedPreferences("PROFILE", MODE_PRIVATE)
                         .edit().putString("profileId", post.getPublisher()).apply();
 
                 ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction()
@@ -206,7 +257,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         holder.postImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit().putString("postid", post.getPostid()).apply();
+                mContext.getSharedPreferences("PREFS", MODE_PRIVATE).edit().putString("postid", post.getPostid()).apply();
 
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new PostDetailFragment()).commit();
@@ -238,6 +289,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         public ImageView comment;
         public ImageView save;
         public ImageView send;
+        public ImageView download;
         public ImageView more;
 
         public TextView username;
@@ -255,6 +307,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
             comment = itemView.findViewById(R.id.comment);
             save = itemView.findViewById(R.id.save);
             send = itemView.findViewById(R.id.send);
+            download = itemView.findViewById(R.id.download);
             more = itemView.findViewById(R.id.more);
 
             username = itemView.findViewById(R.id.username);

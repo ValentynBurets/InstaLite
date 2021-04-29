@@ -23,7 +23,6 @@ public class StartActivity extends AppCompatActivity {
     private LinearLayout linearLayout;
     private Button register;
     private Button login;
-    private LoadServise loadServise = new LoadServise();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,11 +85,10 @@ public class StartActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        loadServise.startTask();
-
         if (FirebaseAuth.getInstance().getCurrentUser() != null){
             startActivity(new Intent(StartActivity.this , MainActivity.class));
             finish();
         }
     }
+
 }

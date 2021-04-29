@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,8 +36,6 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import java.util.HashMap;
 import java.util.List;
 
-import eu.valentyn.instalite.Services.MusicService;
-
 public class PostActivity extends AppCompatActivity {
 
     private Uri imageUri;
@@ -55,7 +52,6 @@ public class PostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-//---------------
         close = findViewById(R.id.close);
         imageAdded = findViewById(R.id.image_added);
         post = findViewById(R.id.post);
@@ -90,15 +86,12 @@ public class PostActivity extends AppCompatActivity {
             final StorageReference filePath = FirebaseStorage.getInstance().getReference("Posts").child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
             StorageTask uploadtask = filePath.putFile(imageUri);
-            uploadtask.continueWithTask(new Continuation() {
-                @Override
-                public Object then(@NonNull Task task) throws Exception {
-                    if (!task.isSuccessful()){
-                        throw task.getException();
-                    }
-
-                    return filePath.getDownloadUrl();
+            uploadtask.continueWithTask((Continuation) task -> {
+                if (!task.isSuccessful()){
+                    throw task.getException();
                 }
+
+                return filePath.getDownloadUrl();
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {

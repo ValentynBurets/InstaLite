@@ -24,6 +24,7 @@ import java.util.List;
 import eu.valentyn.instalite.Adapter.NotificationAdapter;
 import eu.valentyn.instalite.Model.Notification;
 import eu.valentyn.instalite.R;
+import eu.valentyn.instalite.Services.NotificationService;
 
 public class NotificationFragment extends Fragment {
 
@@ -55,7 +56,12 @@ public class NotificationFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    notificationList.add(snapshot.getValue(Notification.class));
+                    Notification notification = snapshot.getValue(Notification.class);
+                    notificationList.add(notification);
+
+                    NotificationService notificationService = new NotificationService();
+                    notificationService.startService(notification, getContext());
+
                 }
 
                 Collections.reverse(notificationList);
